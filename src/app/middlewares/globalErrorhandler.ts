@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// eslint-disable-next-line no-unused-vars
+
 import { ErrorRequestHandler } from 'express';
 import { TErrorSources } from '../interface/error';
 import config from '../config';
@@ -8,6 +11,7 @@ import handleCastError from '../errors/handleCastError';
 import handleDuplicateError from '../errors/handelDuplicateError';
 import AppError from '../errors/AppError';
 
+// eslint-disable-next-line no-unused-vars
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   let statusCode = 500;
   let message = 'Something went wrong';
