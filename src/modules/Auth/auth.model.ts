@@ -7,7 +7,6 @@ const userSchema = new Schema<TUser>(
     name: {
       type: String,
       required: true,
-      unique: true,
     },
     email: {
       type: String,
@@ -17,12 +16,10 @@ const userSchema = new Schema<TUser>(
     password: {
       type: String,
       required: true,
-      unique: true,
     },
     phone: {
       type: String,
       required: true,
-      unique: true,
     },
     role: {
       type: String,
@@ -32,7 +29,6 @@ const userSchema = new Schema<TUser>(
     address: {
       type: String,
       required: true,
-      unique: true,
     },
     isDeleted: {
       type: Boolean,
