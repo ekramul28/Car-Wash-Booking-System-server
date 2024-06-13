@@ -21,7 +21,7 @@ const serviceSchema = new Schema<TService>(
     },
     isDeleted: {
       type: Boolean,
-      required: true,
+      default: false,
     },
   },
   {

@@ -1,7 +1,9 @@
+import QueryBuilder from '../../app/builder/QueryBuilder';
 import AppError from '../../app/errors/AppError';
 import { Service } from '../service/service.model';
 import { TSlots } from './slots.interface';
 import { Slot } from './slots.model';
+import { slotSearchableFields } from './slote.constant';
 
 const createSlotIntoDB = async (payload: TSlots) => {
   const { service, date, startTime, endTime } = payload;
@@ -58,11 +60,29 @@ const createSlotIntoDB = async (payload: TSlots) => {
   };
 
   const slots = generateTimeSlots(startTime, endTime, serviceDuration);
-  console.log(slots);
-  //   const result = await Slot.create(slots);
-  //   return result;
+  const result = await Slot.create(slots);
+  return result;
+};
+
+//available slots
+
+const getAvailableSlots = async (query: Record<string, unknown>) => {
+  console.log(query);
+  const availableSlotsQuery = new QueryBuilder(
+    Slot.find().populate('service'),
+    query,
+  )
+    .search(slotSearchableFields)
+    .fields()
+    .sort()
+    .paginate()
+    .filter();
+
+  const result = await availableSlotsQuery.modelQuery;
+  return result;
 };
 
 export const SlotService = {
   createSlotIntoDB,
+  getAvailableSlots,
 };

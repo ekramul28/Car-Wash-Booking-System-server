@@ -46,7 +46,7 @@ const serviceSchema = z.object({
         invalid_type_error: 'duration must be number',
       })
       .nonnegative('Duration must be a non-negative number'),
-    isDeleted: z.boolean(),
+    isDeleted: z.boolean().optional(),
   }),
 });
 
