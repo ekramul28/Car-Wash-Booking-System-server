@@ -7,6 +7,10 @@ const createUserIntoDB = async (payload: TUser) => {
   const result = await User.create(payload);
   return result;
 };
+const getAllUserIntoDB = async () => {
+  const result = await User.find();
+  return result;
+};
 
 const loginUserIntoDB = async (payload: TLoginUser) => {
   const { password, email } = payload;
@@ -37,4 +41,5 @@ const loginUserIntoDB = async (payload: TLoginUser) => {
 export const UserService = {
   createUserIntoDB,
   loginUserIntoDB,
+  getAllUserIntoDB,
 };

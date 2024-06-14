@@ -14,5 +14,6 @@ route.post(
   validateRequest(UserValidation.loginValidationSchema),
   UserControllers.loginUser,
 );
+route.get('/', UserControllers.getAllUser);
 
 export const authRoutes = route;

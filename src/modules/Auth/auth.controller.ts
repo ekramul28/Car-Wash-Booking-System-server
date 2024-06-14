@@ -9,7 +9,17 @@ const createUser = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Student is created succesfully',
+    message: 'user is created succesfully',
+    data: result,
+  });
+});
+const getAllUser = catchAsync(async (req, res) => {
+  const result = await UserService.getAllUserIntoDB();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'allUser get successfully',
     data: result,
   });
 });
@@ -19,7 +29,7 @@ const loginUser = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User is logged in succesfully!',
+    message: 'User is logged in successfully!',
     data: result,
   });
 });
@@ -27,4 +37,5 @@ const loginUser = catchAsync(async (req, res) => {
 export const UserControllers = {
   createUser,
   loginUser,
+  getAllUser,
 };

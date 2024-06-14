@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { TSlots } from './slots.interface';
+import { TSlots, slotModel } from './slots.interface';
 
-const slotsSchema = new Schema<TSlots>(
+const slotsSchema = new Schema<TSlots, slotModel>(
   {
     service: {
       type: Schema.Types.ObjectId,
@@ -19,11 +19,15 @@ const slotsSchema = new Schema<TSlots>(
     },
     isBooked: {
       type: String,
-      enum: ['Blocked', 'available'],
+      enum: ['Blocked', 'available', 'canceled'],
       default: 'available',
     },
   },
   { timestamps: true },
 );
 
-export const Slot = model<TSlots>('Slot', slotsSchema);
+slotsSchema.statics.isSlotByCustomId = async function (id: string) {
+  return await Slot.findById(id);
+};
+
+export const Slot = model<TSlots, slotModel>('Slot', slotsSchema);
