@@ -3,6 +3,9 @@ import AppError from '../../app/errors/AppError';
 import { User } from './auth.model';
 import { TLoginUser, TUser } from './auth.interface';
 import bcrypt from 'bcrypt';
+import { createToken } from './auth.utils';
+import config from '../../app/config';
+
 const createUserIntoDB = async (payload: TUser) => {
   const result = await User.create(payload);
   return result;
@@ -14,7 +17,7 @@ const getAllUserIntoDB = async () => {
 
 const loginUserIntoDB = async (payload: TLoginUser) => {
   const { password, email } = payload;
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).select('+password');
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
@@ -35,7 +38,28 @@ const loginUserIntoDB = async (payload: TLoginUser) => {
   if (!checkPassword) {
     throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched');
   }
-  return user;
+  const jwtPayload = {
+    userId: user._id,
+    role: user.role,
+  };
+
+  const accessToken = createToken(
+    jwtPayload,
+    config.jwt_access_secret as string,
+    config.jwt_access_expires_in as string,
+  );
+
+  // const refreshToken = createToken(
+  //   jwtPayload,
+  //   config.jwt_refresh_secret as string,
+  //   config.jwt_refresh_expires_in as string,
+  // );
+
+  return {
+    accessToken,
+    // refreshToken,
+    user,
+  };
 };
 
 export const UserService = {

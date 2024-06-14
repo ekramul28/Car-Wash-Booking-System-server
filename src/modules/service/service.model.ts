@@ -1,4 +1,4 @@
-import { Schema, Types, model } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { ServiceModel, TService } from './service.interface';
 
 const serviceSchema = new Schema<TService, ServiceModel>(

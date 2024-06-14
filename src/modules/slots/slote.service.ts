@@ -1,9 +1,8 @@
-import QueryBuilder from '../../app/builder/QueryBuilder';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import AppError from '../../app/errors/AppError';
 import { Service } from '../service/service.model';
 import { TSlots } from './slots.interface';
 import { Slot } from './slots.model';
-import { slotSearchableFields } from './slote.constant';
 
 const createSlotIntoDB = async (payload: TSlots) => {
   const { service, date, startTime, endTime } = payload;
@@ -67,18 +66,14 @@ const createSlotIntoDB = async (payload: TSlots) => {
 //available slots
 
 const getAvailableSlots = async (query: Record<string, unknown>) => {
-  console.log(query);
-  const availableSlotsQuery = new QueryBuilder(
-    Slot.find().populate('service'),
-    query,
-  )
-    .search(slotSearchableFields)
-    .fields()
-    .sort()
-    .paginate()
-    .filter();
+  const { date, serviceId } = query;
 
-  const result = await availableSlotsQuery.modelQuery;
+  const queryObj: any = {};
+  if (date) queryObj.date = date;
+  if (serviceId) queryObj.service = serviceId;
+
+  const result = await Slot.find(queryObj).populate('service').exec();
+
   return result;
 };
 

@@ -1,1 +1,1 @@
-export const slotSearchableFields = ['service', 'date'];
+export const slotSearchableFields = ['date'];
