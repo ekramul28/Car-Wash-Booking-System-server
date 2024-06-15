@@ -16,7 +16,6 @@ const createSlots = catchAsync(async (req, res) => {
 
 const getAvailableSlots = catchAsync(async (req, res) => {
   const result = await SlotService.getAvailableSlots(req?.query);
-  console.log(result);
   if (!checkDataFound(result, res)) return;
 
   sendResponse(res, {

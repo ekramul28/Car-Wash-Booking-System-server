@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Model, Types } from 'mongoose';
 
 export type TSlots = {
@@ -8,5 +9,5 @@ export type TSlots = {
   isBooked: 'Booked' | 'available' | 'canceled';
 };
 export interface slotModel extends Model<TSlots> {
-  isSlotByCustomId(id: string): Promise<TSlots>;
+  isSlotByCustomId(id: Types.ObjectId): Promise<TSlots>;
 }

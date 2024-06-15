@@ -10,6 +10,8 @@ export type TUser = {
   address: string;
   isDeleted: boolean;
   userStatus: 'in-progress' | 'blocked';
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type TLoginUser = {

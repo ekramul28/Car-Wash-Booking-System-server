@@ -10,4 +10,6 @@ export type TBooking = {
   manufacturingYear: number;
   registrationPlate: string;
   isDeleted: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 };

@@ -1,4 +1,5 @@
-import { Model } from 'mongoose';
+/* eslint-disable no-unused-vars */
+import { Model, Types } from 'mongoose';
 
 export type TService = {
   name: string;
@@ -9,5 +10,5 @@ export type TService = {
 };
 
 export interface ServiceModel extends Model<TService> {
-  isServiceExistsByCustomId(id: string): Promise<TService>;
+  isServiceExistsByCustomId(id: Types.ObjectId): Promise<TService>;
 }
