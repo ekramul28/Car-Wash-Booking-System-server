@@ -11,7 +11,7 @@ app.use(cors());
 app.use('/api', router);
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Server is running');
 });
 
 app.use(globalErrorHandler);

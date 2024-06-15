@@ -72,7 +72,6 @@ const getAvailableSlots = async (query: Record<string, unknown>) => {
   const queryObj: any = {};
   if (date) queryObj.date = date;
   if (serviceId) queryObj.service = serviceId;
-
   const result = await Slot.find(queryObj).populate('service').exec();
 
   return result;
