@@ -9,8 +9,17 @@ const createUser = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'user is created succesfully',
-    data: result,
+    message: 'user is created successfully',
+    data: {
+      _id: result._id,
+      name: result.name,
+      email: result.email,
+      phone: result.phone,
+      role: result.role,
+      address: result.address,
+      createdAt: result?.createdAt,
+      updatedAt: result?.updatedAt,
+    },
   });
 });
 const getAllUser = catchAsync(async (req, res) => {

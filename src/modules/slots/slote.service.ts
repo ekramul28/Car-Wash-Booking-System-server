@@ -60,6 +60,7 @@ const createSlotIntoDB = async (payload: TSlots) => {
 
   const slots = generateTimeSlots(startTime, endTime, serviceDuration);
   const result = await Slot.create(slots);
+
   return result;
 };
 
