@@ -7,11 +7,7 @@ A simple and efficient car wash booking system.
 - [Description](#description)
 - [Features](#features)
 - [Installation](#installation)
-- [Environment Variables](#environment-variables)
-- [Running the Project](#running-the-project)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgements](#acknowledgements) -[Technology Stack](#technology-stack)
+- [Environment Variables](#environment-variables) -[Technology Stack](#technology-stack)
 
 ## Description
 
