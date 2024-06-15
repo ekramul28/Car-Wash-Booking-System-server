@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import sendResponse from '../../app/utils/sendResponse';
 import catchAsync from '../../app/utils/catchAsync';
 import { UserService } from './auth.service';
+import checkDataFound from '../../app/utils/checkDataFound';
 
 const createUser = catchAsync(async (req, res) => {
   const result = await UserService.createUserIntoDB(req.body);
@@ -24,7 +25,7 @@ const createUser = catchAsync(async (req, res) => {
 });
 const getAllUser = catchAsync(async (req, res) => {
   const result = await UserService.getAllUserIntoDB();
-
+  if (!checkDataFound(result, res)) return;
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

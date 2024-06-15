@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import catchAsync from '../../app/utils/catchAsync';
 import sendResponse from '../../app/utils/sendResponse';
 import { BookingService } from './bookings.service';
+import checkDataFound from '../../app/utils/checkDataFound';
 
 const createBooking = catchAsync(async (req, res) => {
   const result = await BookingService.createBookingIntoDB(req.body);
@@ -15,7 +16,7 @@ const createBooking = catchAsync(async (req, res) => {
 });
 const getAllBooking = catchAsync(async (req, res) => {
   const result = await BookingService.getAllBookingIntoDB();
-
+  if (!checkDataFound(result, res)) return;
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -38,6 +39,7 @@ const getAllBooking = catchAsync(async (req, res) => {
 const getMyBooking = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await BookingService.getMyBookingIntoDB(id);
+  if (!checkDataFound(result, res)) return;
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
