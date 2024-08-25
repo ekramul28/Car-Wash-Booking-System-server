@@ -3,9 +3,6 @@ import { z } from 'zod';
 
 const bookingValidationSchema = z.object({
   body: z.object({
-    userId: z.string().refine((val) => mongoose.Types.ObjectId.isValid(val), {
-      message: 'Invalid userId ID',
-    }),
     serviceId: z
       .string()
       .refine((val) => mongoose.Types.ObjectId.isValid(val), {

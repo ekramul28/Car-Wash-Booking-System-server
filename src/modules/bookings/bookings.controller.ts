@@ -5,7 +5,10 @@ import { BookingService } from './bookings.service';
 import checkDataFound from '../../app/utils/checkDataFound';
 
 const createBooking = catchAsync(async (req, res) => {
-  const result = await BookingService.createBookingIntoDB(req.body);
+  const userId = req.user.userId;
+  const body = { ...req.body, userId };
+
+  const result = await BookingService.createBookingIntoDB(body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -37,7 +40,7 @@ const getAllBooking = catchAsync(async (req, res) => {
   });
 });
 const getMyBooking = catchAsync(async (req, res) => {
-  const { id } = req.params;
+  const id = req.user.userId;
   const result = await BookingService.getMyBookingIntoDB(id);
   if (!checkDataFound(result, res)) return;
 

@@ -6,11 +6,10 @@ import checkDataFound from '../../app/utils/checkDataFound';
 
 const createUser = catchAsync(async (req, res) => {
   const result = await UserService.createUserIntoDB(req.body);
-
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'user is created successfully',
+    message: `${req.body?.role} is created successfully`,
     data: {
       _id: result._id,
       name: result.name,
@@ -39,7 +38,7 @@ const loginUser = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User is logged in successfully!',
+    message: `${result.user.role} logged in successfully!`,
     token: result?.token,
     data: {
       _id: result.user._id,
