@@ -5,6 +5,9 @@ const userValidationSchema = z.object({
     name: z.string({
       invalid_type_error: 'name must be string',
     }),
+    imageUrl: z.string({
+      invalid_type_error: 'imageUrl must be string',
+    }),
     email: z
       .string({
         invalid_type_error: 'email must be string',
@@ -17,9 +20,6 @@ const userValidationSchema = z.object({
       invalid_type_error: 'phone must be string',
     }),
     role: z.enum(['admin', 'user']).default('user'),
-    address: z.string({
-      invalid_type_error: 'address must be string',
-    }),
   }),
 });
 

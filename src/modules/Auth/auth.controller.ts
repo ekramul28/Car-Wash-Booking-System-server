@@ -3,6 +3,7 @@ import sendResponse from '../../app/utils/sendResponse';
 import catchAsync from '../../app/utils/catchAsync';
 import { UserService } from './auth.service';
 import checkDataFound from '../../app/utils/checkDataFound';
+import config from '../../app/config';
 
 const createUser = catchAsync(async (req, res) => {
   const result = await UserService.createUserIntoDB(req.body);
@@ -34,21 +35,20 @@ const getAllUser = catchAsync(async (req, res) => {
 });
 const loginUser = catchAsync(async (req, res) => {
   const result = await UserService.loginUserIntoDB(req.body);
+  const { refreshToken, accessToken, needsPasswordChange } = result;
 
+  res.cookie('refreshToken', refreshToken, {
+    secure: config.NODE_ENV === 'production',
+    httpOnly: true,
+    sameSite: 'none',
+    maxAge: 1000 * 60 * 60 * 24 * 365,
+  });
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: `${result.user.role} logged in successfully!`,
-    token: result?.token,
+    message: `User logged in successfully!`,
     data: {
-      _id: result.user._id,
-      name: result.user.name,
-      email: result.user.email,
-      phone: result.user.phone,
-      role: result.user.role,
-      address: result.user.address,
-      createdAt: result?.user.createdAt,
-      updatedAt: result?.user.updatedAt,
+      accessToken,
     },
   });
 });

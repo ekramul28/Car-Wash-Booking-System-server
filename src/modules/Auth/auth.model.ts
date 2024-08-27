@@ -22,15 +22,16 @@ const userSchema = new Schema<TUser>(
       type: String,
       required: true,
     },
+    imageUrl: {
+      type: String,
+      required: true,
+    },
     role: {
       type: String,
       enum: ['admin', 'user'],
       default: 'user',
     },
-    address: {
-      type: String,
-      required: true,
-    },
+    
     isDeleted: {
       type: Boolean,
       default: false,

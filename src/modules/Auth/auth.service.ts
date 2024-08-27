@@ -40,6 +40,8 @@ const loginUserIntoDB = async (payload: TLoginUser) => {
   }
   const jwtPayload = {
     userId: user._id,
+    email: user.email,
+    imageUrl: user.imageUrl,
     role: user.role,
   };
 
@@ -48,9 +50,16 @@ const loginUserIntoDB = async (payload: TLoginUser) => {
     config.jwt_access_secret as string,
     config.jwt_access_expires_in as string,
   );
+  console.log(accessToken);
 
+  const refreshToken = createToken(
+    jwtPayload,
+    config.jwt_refresh_secret as string,
+    config.jwt_refresh_expires_in as string,
+  );
   return {
-    token: accessToken,
+    accessToken,
+    refreshToken,
     user,
   };
 };
