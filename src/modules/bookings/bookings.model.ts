@@ -18,26 +18,19 @@ const bookingSchema = new Schema<TBooking>(
       required: true,
       ref: 'Slot',
     },
-    vehicleType: {
+    date: {
       type: String,
       required: true,
     },
-    vehicleBrand: {
+    startTime: {
       type: String,
       required: true,
     },
-    vehicleModel: {
+    endTime: {
       type: String,
       required: true,
     },
-    manufacturingYear: {
-      type: Number,
-      required: true,
-    },
-    registrationPlate: {
-      type: String,
-      required: true,
-    },
+
     isDeleted: {
       type: Boolean,
       default: false,

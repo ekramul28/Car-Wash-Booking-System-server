@@ -8,32 +8,26 @@ const bookingValidationSchema = z.object({
       .refine((val) => mongoose.Types.ObjectId.isValid(val), {
         message: 'Invalid service ID',
       }),
+    userId: z.string().refine((val) => mongoose.Types.ObjectId.isValid(val), {
+      message: 'Invalid userId ID',
+    }),
     slotId: z.string().refine((val) => mongoose.Types.ObjectId.isValid(val), {
       message: 'Invalid slotId ID',
     }),
-    vehicleType: z.string({
-      invalid_type_error: 'vehicleType  must be string',
-      required_error: 'vehicleType is required',
+    date: z.string({
+      invalid_type_error: 'date  must be string',
+      required_error: 'date is required',
     }),
-    vehicleBrand: z.string({
-      invalid_type_error: 'vehicleBrand  must be string',
-      required_error: 'vehicleBrand is required',
+
+    startTime: z.string({
+      invalid_type_error: ' startTime  must be string',
+      required_error: ' startTime is required',
     }),
-    vehicleModel: z.string({
-      invalid_type_error: 'vehicleModel  must be string',
-      required_error: 'vehicleModel is required',
+    endTime: z.string({
+      invalid_type_error: 'endTime  must be string',
+      required_error: 'endTime is required',
     }),
-    manufacturingYear: z
-      .number({
-        invalid_type_error: 'manufacturingYear department must be Number',
-        required_error: 'Name is required',
-      })
-      .int()
-      .min(2000),
-    registrationPlate: z.string({
-      invalid_type_error: 'registrationPlate  must be string',
-      required_error: 'registrationPlate is required',
-    }),
+    isDeleted: z.boolean(),
   }),
 });
 

@@ -68,7 +68,6 @@ const createSlotIntoDB = async (payload: TSlots) => {
 
 const getAvailableSlots = async (query: Record<string, unknown>) => {
   const { date, serviceId } = query;
-
   const queryObj: any = {};
   if (date) queryObj.date = date;
   if (serviceId) queryObj.service = serviceId;
