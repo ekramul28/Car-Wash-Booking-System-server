@@ -1,6 +1,7 @@
 import Stripe from 'stripe';
 import { STRIPE_API_VERSION, STRIPE_SECRET_KEY } from './payment.constant';
 import { Booking } from '../bookings/bookings.model';
+import { Service } from '../service/service.model';
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, {
   apiVersion: STRIPE_API_VERSION,
@@ -8,15 +9,20 @@ const stripe = new Stripe(STRIPE_SECRET_KEY, {
 
 const createPaymentLink = async (userId: string) => {
   try {
-    const bookings = await Booking.find({ userId }).populate('serviceId');
+    const bookings = await Booking.find({ userId });
+    const productIds = bookings.map((item) => item.serviceId);
+    const service = await Service.find({ _id: { $in: productIds } }).exec();
     if (!bookings || bookings.length === 0) {
       throw new Error('No bookings found for the user.');
     }
 
     const lineItems = bookings.map((booking) => {
-      const title = booking.serviceId.title || 'Service';
-      const price = booking.serviceId?.price || 0;
-      const image = booking.serviceId?.image?.[0] || '';
+      const productD = service.find(
+        (product) => product._id.toString() === booking.serviceId.toString(),
+      );
+      const title = productD?.title || '';
+      const price = productD?.price || 0;
+      const image = productD?.image[0] || '';
 
       return {
         price_data: {

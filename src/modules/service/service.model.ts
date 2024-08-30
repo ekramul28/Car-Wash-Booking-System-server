@@ -3,8 +3,16 @@ import { ServiceModel, TService } from './service.interface';
 
 const serviceSchema = new Schema<TService, ServiceModel>(
   {
-    name: {
+    id: {
+      type: Number,
+      required: true,
+    },
+    title: {
       type: String,
+      required: true,
+    },
+    image: {
+      type: [String],
       required: true,
     },
     description: {
