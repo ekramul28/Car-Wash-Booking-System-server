@@ -2,7 +2,6 @@ import httpStatus from 'http-status';
 import catchAsync from '../../app/utils/catchAsync';
 import sendResponse from '../../app/utils/sendResponse';
 import { SlotService } from './slote.service';
-import checkDataFound from '../../app/utils/checkDataFound';
 
 const createSlots = catchAsync(async (req, res) => {
   const result = await SlotService.createSlotIntoDB(req.body);
@@ -15,9 +14,7 @@ const createSlots = catchAsync(async (req, res) => {
 });
 
 const getAvailableSlots = catchAsync(async (req, res) => {
-  console.log('cont', req.query);
   const result = await SlotService.getAvailableSlots(req?.query);
-  if (!checkDataFound(result, res)) return;
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -26,8 +23,21 @@ const getAvailableSlots = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getUpdateSlots = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const query = req.body;
+  const result = await SlotService.updateSlots(query, id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Update slots retrieved successfully',
+    data: result,
+  });
+});
 
 export const SlotControllers = {
   createSlots,
   getAvailableSlots,
+  getUpdateSlots,
 };

@@ -15,6 +15,7 @@ const slotValidationSchema = z.object({
     endTime: z
       .string()
       .regex(/^\d{2}:\d{2}$/, { message: 'Invalid end time format' }),
+    isDeleted: z.string().optional(),
   }),
 });
 

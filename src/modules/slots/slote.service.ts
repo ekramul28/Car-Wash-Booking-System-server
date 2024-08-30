@@ -72,11 +72,28 @@ const getAvailableSlots = async (query: Record<string, unknown>) => {
   if (date) queryObj.date = date;
   if (serviceId) queryObj.service = serviceId;
   const result = await Slot.find(queryObj).populate('service').exec();
+  return result;
+};
+const updateSlots = async (query: Record<string, unknown>, id: string) => {
+  console.log(id);
+  console.log(query);
+  const slot = await Slot.findById(id);
+  if (!slot) {
+    throw new AppError(400, 'serviceId  not found');
+  }
+  if (slot.isDeleted) {
+    throw new AppError(400, 'service is deleted');
+  }
+
+  const result = await Slot.findByIdAndUpdate(id, query, {
+    new: true,
+    runValidators: true,
+  });
 
   return result;
 };
-
 export const SlotService = {
   createSlotIntoDB,
   getAvailableSlots,
+  updateSlots,
 };

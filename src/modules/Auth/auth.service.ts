@@ -3,7 +3,7 @@ import AppError from '../../app/errors/AppError';
 import { User } from './auth.model';
 import { TLoginUser, TUser } from './auth.interface';
 import bcrypt from 'bcrypt';
-import { createToken } from './auth.utils';
+import { createToken, verifyToken } from './auth.utils';
 import config from '../../app/config';
 
 const createUserIntoDB = async (payload: TUser) => {
@@ -50,7 +50,6 @@ const loginUserIntoDB = async (payload: TLoginUser) => {
     config.jwt_access_secret as string,
     config.jwt_access_expires_in as string,
   );
-  console.log(accessToken);
 
   const refreshToken = createToken(
     jwtPayload,
@@ -61,6 +60,49 @@ const loginUserIntoDB = async (payload: TLoginUser) => {
     accessToken,
     refreshToken,
     user,
+  };
+};
+const refreshToken = async (token: string) => {
+  // checking if the given token is valid
+  const decoded = verifyToken(token, config.jwt_refresh_secret as string);
+
+  const { userId } = decoded;
+
+  // checking if the user is exist
+  const user = await User.findOne({ _id: userId });
+
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
+  }
+  // checking if the user is already deleted
+  const isDeleted = user?.isDeleted;
+
+  if (isDeleted) {
+    throw new AppError(httpStatus.FORBIDDEN, 'This user is deleted !');
+  }
+
+  // checking if the user is blocked
+  const userStatus = user?.status;
+
+  if (userStatus === 'blocked') {
+    throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked ! !');
+  }
+
+  const jwtPayload = {
+    userId: user._id,
+    email: user.email,
+    imageUrl: user.imageUrl,
+    role: user.role,
+  };
+
+  const accessToken = createToken(
+    jwtPayload,
+    config.jwt_access_secret as string,
+    config.jwt_access_expires_in as string,
+  );
+
+  return {
+    accessToken,
   };
 };
 

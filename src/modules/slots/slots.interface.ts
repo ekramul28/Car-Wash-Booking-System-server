@@ -6,7 +6,8 @@ export type TSlots = {
   date: Date;
   startTime: string;
   endTime: string;
-  isBooked: 'Booked' | 'available' | 'canceled';
+  isBooked: 'booked' | 'available' | 'canceled';
+  isDeleted?: false;
 };
 export interface slotModel extends Model<TSlots> {
   isSlotByCustomId(id: Types.ObjectId): Promise<TSlots>;

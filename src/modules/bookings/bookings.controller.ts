@@ -29,11 +29,7 @@ const getAllBooking = catchAsync(async (req, res) => {
       customer: response.userId,
       service: response.serviceId,
       slot: response.slotId,
-      vehicleType: response.vehicleType,
-      vehicleBrand: response.vehicleBrand,
-      vehicleModel: response.vehicleModel,
-      manufacturingYear: response.manufacturingYear,
-      registrationPlate: response.registrationPlate,
+
       createdAt: response.createdAt,
       updatedAt: response.updatedAt,
     })),
@@ -41,26 +37,14 @@ const getAllBooking = catchAsync(async (req, res) => {
 });
 const getMyBooking = catchAsync(async (req, res) => {
   const id = req.user.userId;
+  console.log({ id });
   const result = await BookingService.getMyBookingIntoDB(id);
-  if (!checkDataFound(result, res)) return;
-
+  console.log(result);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'All bookings retrieved successfully',
-    data: result.map((response) => ({
-      _id: response._id,
-      customer: response.userId,
-      service: response.serviceId,
-      slot: response.slotId,
-      vehicleType: response.vehicleType,
-      vehicleBrand: response.vehicleBrand,
-      vehicleModel: response.vehicleModel,
-      manufacturingYear: response.manufacturingYear,
-      registrationPlate: response.registrationPlate,
-      createdAt: response.createdAt,
-      updatedAt: response.updatedAt,
-    })),
+    data: result,
   });
 });
 

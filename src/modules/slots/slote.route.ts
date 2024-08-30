@@ -13,6 +13,7 @@ route.post(
   validateRequest(SlotsValidation.slotValidationSchema),
   SlotControllers.createSlots,
 );
+route.put('/:id', SlotControllers.getUpdateSlots);
 route.get('/availability', SlotControllers.getAvailableSlots);
 
 export const slotRoutes = route;

@@ -1,33 +1,31 @@
-import mongoose from 'mongoose';
 import { z } from 'zod';
 
 const bookingValidationSchema = z.object({
   body: z.object({
-    serviceId: z
-      .string()
-      .refine((val) => mongoose.Types.ObjectId.isValid(val), {
-        message: 'Invalid service ID',
-      }),
-    userId: z.string().refine((val) => mongoose.Types.ObjectId.isValid(val), {
-      message: 'Invalid userId ID',
+    serviceId: z.string({
+      invalid_type_error: 'Service ID must be a string',
+      required_error: 'Service ID is required',
     }),
-    slotId: z.string().refine((val) => mongoose.Types.ObjectId.isValid(val), {
-      message: 'Invalid slotId ID',
+    userId: z.string({
+      invalid_type_error: 'User ID must be a string',
+      required_error: 'User ID is required',
+    }),
+    slotId: z.string({
+      invalid_type_error: 'Slot ID must be a string',
+      required_error: 'Slot ID is required',
     }),
     date: z.string({
-      invalid_type_error: 'date  must be string',
-      required_error: 'date is required',
+      message: 'Date must be in the format YYYY-MM-DD',
     }),
-
     startTime: z.string({
-      invalid_type_error: ' startTime  must be string',
-      required_error: ' startTime is required',
+      invalid_type_error: 'startTime must be a string',
+      required_error: 'startTime is required',
     }),
     endTime: z.string({
-      invalid_type_error: 'endTime  must be string',
+      invalid_type_error: 'endTime must be a string',
       required_error: 'endTime is required',
     }),
-    isDeleted: z.boolean(),
+    isDeleted: z.boolean().optional().default(false),
   }),
 });
 

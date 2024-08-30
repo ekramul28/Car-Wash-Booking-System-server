@@ -19,8 +19,12 @@ const slotsSchema = new Schema<TSlots, slotModel>(
     },
     isBooked: {
       type: String,
-      enum: ['Blocked', 'available', 'canceled'],
+      enum: ['booked', 'available', 'canceled'],
       default: 'available',
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true },
