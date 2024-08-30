@@ -24,22 +24,13 @@ const getAllBooking = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'All bookings retrieved successfully',
-    data: result.map((response) => ({
-      _id: response._id,
-      customer: response.userId,
-      service: response.serviceId,
-      slot: response.slotId,
-
-      createdAt: response.createdAt,
-      updatedAt: response.updatedAt,
-    })),
+    data: result,
   });
 });
 const getMyBooking = catchAsync(async (req, res) => {
   const id = req.user.userId;
   console.log({ id });
   const result = await BookingService.getMyBookingIntoDB(id);
-  console.log(result);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
