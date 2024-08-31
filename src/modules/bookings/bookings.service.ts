@@ -21,7 +21,7 @@ const createBookingIntoDB = async (payload: TBooking) => {
   if (!slot) {
     throw new AppError(httpStatus.NOT_FOUND, 'Service  not found');
   }
-  if (slot?.isBooked === 'Booked') {
+  if (slot?.isBooked === 'booked') {
     throw new AppError(httpStatus.BAD_REQUEST, 'This Slot  is already Booked');
   }
 

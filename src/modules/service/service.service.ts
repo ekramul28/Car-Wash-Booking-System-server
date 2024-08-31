@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import { TService } from './service.interface';
 import { Service } from './service.model';
 import AppError from '../../app/errors/AppError';
-import { Types } from 'mongoose';
+import { ObjectId, Types } from 'mongoose';
 
 const createServiceIntoDB = async (payload: TService) => {
   const result = await Service.create(payload);
@@ -17,19 +17,16 @@ const getSingleServiceIntoDB = async (id: string) => {
   return result;
 };
 
-const updateServiceIntoDB = async (
-  id: Types.ObjectId,
-  payload: Partial<TService>,
-) => {
+const updateServiceIntoDB = async (id: string, payload: Partial<TService>) => {
   const { ...remainingServiceData } = payload;
 
-  const service = await Service.isServiceExistsByCustomId(id);
+  const service = await Service.find({ _id: id });
   if (!service) {
     throw new AppError(httpStatus.NOT_FOUND, 'Service  not found');
   }
-  if (service?.isDeleted) {
-    throw new AppError(httpStatus.BAD_REQUEST, 'This Service  is deleted');
-  }
+  // if (service?.isDeleted) {
+  //   throw new AppError(httpStatus.BAD_REQUEST, 'This Service  is deleted');
+  // }
 
   const result = await Service.findByIdAndUpdate(id, remainingServiceData, {
     new: true,

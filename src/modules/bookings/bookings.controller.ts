@@ -29,7 +29,6 @@ const getAllBooking = catchAsync(async (req, res) => {
 });
 const getMyBooking = catchAsync(async (req, res) => {
   const id = req.user.userId;
-  console.log({ id });
   const result = await BookingService.getMyBookingIntoDB(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,

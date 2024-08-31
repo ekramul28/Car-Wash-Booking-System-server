@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Model, Types } from 'mongoose';
+import { Model, ObjectId, Types } from 'mongoose';
 
 export type TService = {
   id: number; // A unique identifier for the service

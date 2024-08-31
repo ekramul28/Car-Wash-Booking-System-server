@@ -16,7 +16,7 @@ route.post(
 route.get('/bookings', auth(USER_ROLE.admin), BookingControllers.getAllBooking);
 route.get(
   '/my-bookings',
-  auth(USER_ROLE.user),
+  auth(USER_ROLE.user, USER_ROLE.admin),
   BookingControllers.getMyBooking,
 );
 

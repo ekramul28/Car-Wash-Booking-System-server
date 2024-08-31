@@ -4,7 +4,7 @@ import validateRequest from '../../app/middlewares/validateRequest';
 import { UserValidation } from './auth.validation';
 import auth from '../../app/middlewares/auth';
 import { USER_ROLE } from './auth.constant';
-import { UserService } from './auth.service';
+// import { UserService } from './auth.service';
 const route = express.Router();
 
 route.post(

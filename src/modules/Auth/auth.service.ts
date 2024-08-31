@@ -64,9 +64,7 @@ const loginUserIntoDB = async (payload: TLoginUser) => {
 };
 const refreshToken = async (token: string) => {
   // checking if the given token is valid
-  console.log({ token });
   const decoded = verifyToken(token, config.jwt_refresh_secret as string);
-  console.log(decoded);
   const { userId } = decoded;
 
   // checking if the user is exist
@@ -83,7 +81,7 @@ const refreshToken = async (token: string) => {
   }
 
   // checking if the user is blocked
-  const userStatus = user?.status as string;
+  const userStatus = user?.userStatus;
 
   if (userStatus === 'blocked') {
     throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked ! !');
