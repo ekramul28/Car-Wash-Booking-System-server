@@ -13,10 +13,9 @@ const updateServiceSchema = z.object({
       })
       .optional(),
     price: z
-      .number({
+      .string({
         invalid_type_error: 'price must be number',
       })
-      .nonnegative('Price must be a non-negative number')
       .optional(),
     duration: z
       .number({

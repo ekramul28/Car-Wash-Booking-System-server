@@ -58,4 +58,6 @@ DATABASE_URL=give your mongodb url name and password
 BCRYPT_SALT_ROUNDS=12
 JWT_ACCESS_SECRET=give your secret
 JWT_ACCESS_EXPIRES_IN=give your expires
+JWT_ACCESS_EXPIRES_IN=1d
+JWT_REFRESH_EXPIRES_IN=1d
 ```
