@@ -6,7 +6,7 @@ export type TService = {
   image: string[]; // Array of image URLs
   title: string; // Title of the service
   description: string; // Description of the service
-  price: number; // Price of the service
+  price: string; // Price of the service
   duration: number; // Duration of the service in minutes
   isDeleted?: boolean; // Flag indicating if the service is deleted
 };

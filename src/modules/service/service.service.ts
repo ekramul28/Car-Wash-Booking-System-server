@@ -2,15 +2,30 @@ import httpStatus from 'http-status';
 import { TService } from './service.interface';
 import { Service } from './service.model';
 import AppError from '../../app/errors/AppError';
-import { ObjectId, Types } from 'mongoose';
+import QueryBuilder from '../../app/builder/QueryBuilder';
+
+const ProductSearchableFields = ['title', 'price', 'description'];
 
 const createServiceIntoDB = async (payload: TService) => {
   const result = await Service.create(payload);
   return result;
 };
-const getAllServiceIntoDB = async () => {
-  const result = await Service.find();
-  return result;
+const getAllServiceIntoDB = async (query: Record<string, unknown>) => {
+  console.log(query);
+  const ServiceQuery = new QueryBuilder(Service.find(), query)
+    .search(ProductSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await ServiceQuery.modelQuery;
+  const meta = await ServiceQuery.countTotal();
+
+  return {
+    meta,
+    result,
+  };
 };
 const getSingleServiceIntoDB = async (id: string) => {
   const result = await Service.findById(id);

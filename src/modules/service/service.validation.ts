@@ -36,11 +36,9 @@ const serviceSchema = z.object({
     description: z.string({
       invalid_type_error: 'description must be string',
     }),
-    price: z
-      .number({
-        invalid_type_error: 'price must be number',
-      })
-      .nonnegative('Price must be a non-negative number'),
+    price: z.string({
+      invalid_type_error: 'price must be string',
+    }),
     duration: z
       .number({
         invalid_type_error: 'duration must be number',

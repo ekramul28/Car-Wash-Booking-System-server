@@ -20,7 +20,8 @@ const createPaymentLink = async (userId: string) => {
       (product) => product._id.toString() === booking.serviceId.toString(),
     );
     const title = productD?.title || '';
-    const price = productD?.price || 0;
+    const price = Number(productD?.price) || 0;
+
     const image = productD?.image[0] || '';
 
     return {
