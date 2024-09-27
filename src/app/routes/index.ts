@@ -17,7 +17,7 @@ const moduleRoutes = [
     route: authRoutes,
   },
   {
-    path: '/Create-checkout-session',
+    path: '/payment',
     route: PaymentRoutes,
   },
   {

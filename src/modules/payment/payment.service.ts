@@ -2,6 +2,7 @@ import Stripe from 'stripe';
 import { STRIPE_API_VERSION, STRIPE_SECRET_KEY } from './payment.constant';
 import { Booking } from '../bookings/bookings.model';
 import { Service } from '../service/service.model';
+import { initiatePayment } from './payment.utils';
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, {
   apiVersion: STRIPE_API_VERSION,
@@ -48,6 +49,14 @@ const createPaymentLink = async (userId: string) => {
   return session;
 };
 
+const amrPayPayment = async (data) => {
+  const result = await initiatePayment();
+  console.log('service thaka', result);
+
+  return result;
+};
+
 export const createPaymentLinkService = {
   createPaymentLink,
+  amrPayPayment,
 };

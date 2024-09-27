@@ -53,6 +53,7 @@ const getAllBookingIntoDB = async () => {
   return result;
 };
 const getMyBookingIntoDB = async (id: string) => {
+  console.log('man', id);
   const result = await Booking.find({ userId: id })
     .populate('serviceId')
     .populate('slotId')

@@ -13,7 +13,18 @@ const stripePayment = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const amrPayPayment = catchAsync(async (req, res) => {
+  const data = req.body;
+  const result = await createPaymentLinkService.amrPayPayment(data);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'payment successfully ',
+    data: result,
+  });
+});
 
 export const LinkControllers = {
   stripePayment,
+  amrPayPayment,
 };

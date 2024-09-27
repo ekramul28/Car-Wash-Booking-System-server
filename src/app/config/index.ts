@@ -12,4 +12,7 @@ export default {
   jwt_refresh_secret: process.env.JWT_REFRESH_SECRET,
   jwt_access_expires_in: process.env.JWT_ACCESS_EXPIRES_IN,
   jwt_refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN,
+  amr_pay_url: process.env.AMRPAYURL,
+  amr_pay_id: process.env.AMRPAYID,
+  amr_pay_key: process.env.AMRPAYKey,
 };
