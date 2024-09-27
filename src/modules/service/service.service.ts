@@ -11,7 +11,6 @@ const createServiceIntoDB = async (payload: TService) => {
   return result;
 };
 const getAllServiceIntoDB = async (query: Record<string, unknown>) => {
-  console.log(query);
   const ServiceQuery = new QueryBuilder(Service.find(), query)
     .search(ProductSearchableFields)
     .filter()

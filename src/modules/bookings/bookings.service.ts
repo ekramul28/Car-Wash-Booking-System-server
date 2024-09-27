@@ -60,9 +60,18 @@ const getMyBookingIntoDB = async (id: string) => {
 
   return result;
 };
+const deleteSingleMyBooking = async (id: string, bookingId: string) => {
+  const result = await Booking.findByIdAndDelete({
+    userId: id,
+    _id: bookingId,
+  });
+
+  return result;
+};
 
 export const BookingService = {
   createBookingIntoDB,
   getAllBookingIntoDB,
   getMyBookingIntoDB,
+  deleteSingleMyBooking,
 };

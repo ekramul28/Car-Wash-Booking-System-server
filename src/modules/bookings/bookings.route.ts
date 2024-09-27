@@ -20,4 +20,10 @@ route.get(
   BookingControllers.getMyBooking,
 );
 
+route.delete(
+  '/my-bookings/:id',
+  auth(USER_ROLE.user, USER_ROLE.admin),
+  BookingControllers.deleteSingleMyBooking,
+);
+
 export const bookingRoutes = route;
