@@ -15,4 +15,5 @@ export default {
   amr_pay_url: process.env.AMRPAYURL,
   amr_pay_id: process.env.AMRPAYID,
   amr_pay_key: process.env.AMRPAYKey,
+  amr_pay_verify_url: process.env.AMRPAYVERIFYURL,
 };

@@ -7,5 +7,7 @@ export type TBooking = {
   date: string;
   startTime: string;
   endTime: string;
+  payment?: string;
+  status?: string;
   isDeleted?: boolean;
 };

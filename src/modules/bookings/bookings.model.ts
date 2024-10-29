@@ -30,6 +30,14 @@ const bookingSchema = new Schema<TBooking>(
       type: String,
       required: true,
     },
+    payment: {
+      type: String,
+      default: 'nonPaid',
+    },
+    status: {
+      type: String,
+      default: 'pending',
+    },
 
     isDeleted: {
       type: Boolean,

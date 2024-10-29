@@ -25,6 +25,17 @@ const bookingValidationSchema = z.object({
       invalid_type_error: 'endTime must be a string',
       required_error: 'endTime is required',
     }),
+    payment: z
+      .string({
+        invalid_type_error: 'payment must be a string',
+      })
+      .optional(),
+    status: z
+      .string({
+        invalid_type_error: 'status must be a string',
+      })
+      .optional(),
+
     isDeleted: z.boolean().optional().default(false),
   }),
 });
