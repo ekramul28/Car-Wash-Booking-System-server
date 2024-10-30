@@ -3,15 +3,20 @@
 /* eslint-disable no-unused-vars */
 import { v4 as uuidv4 } from 'uuid';
 import config from '../../app/config';
-import { TUser } from '../Auth/auth.interface';
-
+export type UserS = {
+  email: string;
+  exp: number; // expiration time as a Unix timestamp
+  iat: number; // issued at time as a Unix timestamp
+  imageUrl: string;
+  role: 'user' | 'admin'; // Assuming role can be either "user" or "admin"
+  userId: string;
+};
 export const initiatePayment = async (data: {
   totalPrice: number;
-  user: TUser;
+  user: UserS;
   totalHoursInDecimal: number;
 }) => {
   const { totalPrice, user, totalHoursInDecimal } = data;
-  console.log(data);
   try {
     const tranId = `tran_${uuidv4()}`;
     const amount = totalPrice?.toFixed(2);
@@ -25,7 +30,7 @@ export const initiatePayment = async (data: {
       store_id: config.amr_pay_id,
       signature_key: config.amr_pay_key,
       tran_id: tranId,
-      success_url: `http://localhost:5000/api/v1/payment/conformation?userId=${user.userId}&tnxId=${tranId}`,
+      success_url: `http://localhost:5000/api/v1/payment/conformation?userId=${user?.userId}&tnxId=${tranId}`,
       fail_url: 'http://localhost:5000/api/v1/payment/fail',
       cancel_url: 'http://localhost:5000/api/v1/payment/fail',
       amount: amount,
@@ -90,11 +95,8 @@ export const VerifyPayment = async (tnxId: string) => {
       },
     });
 
-    console.log('Response status:', response.status);
-
     // Log the raw response text for debugging
     const responseText = await response.text();
-    console.log('Raw response text:', responseText);
 
     // Try parsing if the response is in JSON format
     const result = JSON.parse(responseText);

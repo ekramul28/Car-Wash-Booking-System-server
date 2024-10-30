@@ -75,8 +75,6 @@ const getAvailableSlots = async (query: Record<string, unknown>) => {
   return result;
 };
 const updateSlots = async (query: Record<string, unknown>, id: string) => {
-  console.log(id);
-  console.log(query);
   const slot = await Slot.findById(id);
   if (!slot) {
     throw new AppError(400, 'serviceId  not found');

@@ -61,7 +61,6 @@ const getAllBookingIntoDB = async (query: Record<string, unknown>) => {
   return result;
 };
 const getMyBookingIntoDB = async (id: string) => {
-  console.log('man', id);
   const result = await Booking.find({ userId: id })
     .populate('serviceId')
     .populate('slotId')
@@ -81,8 +80,7 @@ const updateSingleBookingDB = async (updateData: any, id: string) => {
   const updatedUser = await Booking.findByIdAndUpdate({ _id: id }, updateData, {
     new: true,
   });
-  console.log(updatedUser);
-  console.log(updateData, { id });
+
   return updatedUser;
 };
 export const BookingService = {

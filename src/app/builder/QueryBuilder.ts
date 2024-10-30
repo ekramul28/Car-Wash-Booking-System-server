@@ -11,7 +11,6 @@ class QueryBuilder<T> {
 
   search(searchableFields: string[]) {
     const searchTerm = this?.query?.searchTerm;
-    console.log({ searchTerm });
     if (searchTerm) {
       this.modelQuery = this.modelQuery.find({
         $or: searchableFields.map(
@@ -28,7 +27,6 @@ class QueryBuilder<T> {
 
   filter() {
     const queryObj = { ...this.query }; // copy
-    console.log({ queryObj });
     // Filtering
     const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
 
