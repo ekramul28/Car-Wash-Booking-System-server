@@ -14,6 +14,11 @@ route.post(
   BookingControllers.createBooking,
 );
 route.get('/bookings', auth(USER_ROLE.admin), BookingControllers.getAllBooking);
+route.patch(
+  '/bookings/:id',
+  auth(USER_ROLE.admin),
+  BookingControllers.updateSingleBooking,
+);
 route.get(
   '/my-bookings',
   auth(USER_ROLE.user, USER_ROLE.admin),

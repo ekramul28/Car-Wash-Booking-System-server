@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Service } from '../service/service.model';
 import { TBooking } from './bookings.interface';
 import { Booking } from './bookings.model';
 import AppError from '../../app/errors/AppError';
 import httpStatus from 'http-status';
 import { Slot } from '../slots/slots.model';
+import QueryBuilder from '../../app/builder/QueryBuilder';
 
 const createBookingIntoDB = async (payload: TBooking) => {
   const { serviceId, slotId } = payload;
@@ -44,11 +46,17 @@ const createBookingIntoDB = async (payload: TBooking) => {
   return result;
 };
 
-const getAllBookingIntoDB = async () => {
-  const result = await Booking.find()
-    .populate('serviceId')
-    .populate('slotId')
-    .populate('userId');
+const getAllBookingIntoDB = async (query: Record<string, unknown>) => {
+  const booking = new QueryBuilder(
+    Booking.find().populate('serviceId').populate('slotId').populate('userId'),
+    query,
+  )
+    .paginate()
+    .search(['email'])
+    .filter()
+    .sort();
+
+  const result = await booking.modelQuery;
 
   return result;
 };
@@ -69,10 +77,18 @@ const deleteSingleMyBooking = async (id: string, bookingId: string) => {
 
   return result;
 };
-
+const updateSingleBookingDB = async (updateData: any, id: string) => {
+  const updatedUser = await Booking.findByIdAndUpdate({ _id: id }, updateData, {
+    new: true,
+  });
+  console.log(updatedUser);
+  console.log(updateData, { id });
+  return updatedUser;
+};
 export const BookingService = {
   createBookingIntoDB,
   getAllBookingIntoDB,
   getMyBookingIntoDB,
   deleteSingleMyBooking,
+  updateSingleBookingDB,
 };
